@@ -4,8 +4,8 @@
 package main // パッケージ名（必須）
 
 import (
-	"fmt"
-	"log"
+	"fmt" // https://golang.org/pkg/fmt/
+	"log" // https://golang.org/pkg/log/
 )
 
 // （原則として）最初に実行される関数です。

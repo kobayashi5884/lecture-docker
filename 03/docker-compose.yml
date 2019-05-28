@@ -1,0 +1,13 @@
+version: '3.1'
+services:
+  golang:
+    build: 
+      context: .
+    ports:
+    - "80:8080"
+    # Dockerの外からコンテナと通信する場合には、コンテナのポートを開く必要があります。
+    # :の左側がホストマシンのポート番号で、右側がコンテナのポート番号です。
+    # 両者を異なるポート番号にすることもできます。
+    volumes:
+      - "./app:/go/src/app"
+    tty: true
