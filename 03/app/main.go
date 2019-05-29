@@ -4,13 +4,20 @@ import (
 	"log"
 	"net/http"      // https://golang.org/pkg/net/http/
 	"text/template" // https://golang.org/pkg/text/template/
+
+	"github.com/gorilla/mux" //https://github.com/gorilla/mux
+	// ルーティングのサードパーティーパッケージです。
+	// ルーティングは、net/httpという標準パッケージでも可能ですが、
+	// gorilla/muxは、色々な機能が強化されています。
 )
 
 func main() {
 	// ルーティング（URLのパスが/の場合には、関数greetが実行されます。)
-	http.HandleFunc("/", greet)
+	r := mux.NewRouter()
+	r.HandleFunc("/", greet)
+
 	// 8080番ポートでWEBアプリケーションを起動します。
-	http.ListenAndServe(":8080", nil)
+	log.Fatal(http.ListenAndServe(":8080", r))
 }
 
 func greet(w http.ResponseWriter, r *http.Request) {
@@ -28,9 +35,9 @@ func greet(w http.ResponseWriter, r *http.Request) {
 		Name string
 	}
 	// そして、Data型の変数dataを定義します。
-	data := Data{Name: "Docker"}
+	data := Data{Name: "Gopher"}
 
-	// index.htmlのTemplateにdataを出力し、最終的なhtmlをレスポンスとして返します。
+	// index.htmlのTemplateにdataを渡して、生成されたhtmlをレスポンスとして返します。
 	if err := t.Execute(w, data); err != nil {
 		log.Println(err)
 		http.Error(w, "", http.StatusInternalServerError)

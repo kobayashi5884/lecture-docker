@@ -1,18 +1,22 @@
 package main
+
 // １つのディレクトリには１つのパッケージしか作れませんが、
 // 同じパッケージであれば、ファイルをいくつでも作れます。
 // 要するに、パッケージとディレクトリは、１対１対応になります。
 import (
 	// 標準パッケージ以外のパッケージをインポートする場合には、
-	// /go/src/を起点とする相対パスを指定します。
-	"app/greet"
+	// そのソースコードが保存されているディレクトリを、
+	// /go/src/を起点とする相対パスで指定します。
+	"app/human"
 )
 
-var name string = "Docker"
-// グローバル変数の宣言方法です。
-// name := "Docker"
-// という宣言方法（リテラル）もあり、このように記載すると、型（string）の指定を省略できます。
-
-func usePackageGreet() {
-	greet.HelloWithName(name)
+func usePackageHuman() {
+	// humanパッケージで定義されたHuman型の変数を宣言します。
+	gopher := human.Human{
+		Name: "Gopher",
+		Age:  5,
+	}
+	// メソッドを実行します。
+	gopher.Greet()
+	// 他のパッケージのメソッドを呼び出すときは、パッケージ名の指定は不要です。
 }
