@@ -7,5 +7,5 @@ RUN apk add --no-cache git \
 # ソースコードがダウンロードされます。
 # 要するに、URLと/go/src/からの相対パスが一致します。
 # apk addは、Linux Alpineのコマンドで、
-# go getの実行に必要なgitというLinuxのパッケージを、
+# go getの実行に必要なgitというパッケージを、
 # go getの実行前にインストールしています。

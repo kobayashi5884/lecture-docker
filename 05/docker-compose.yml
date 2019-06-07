@@ -1,0 +1,43 @@
+version: '3.1'
+services:
+  web:
+    build: 
+      context: .
+      # ファイル名が"Dockerfile"以外の場合には、下記のようにファイル名を指定します。
+      dockerfile: web.Dockerfile
+    ports:
+      - "80:3000"
+    volumes:
+      - "./web:/app"
+    tty: true
+
+  api:
+    build:
+      context: .
+      dockerfile: api.Dockerfile
+    ports:
+      - "15000:5000"
+    volumes:
+      - "./api:/go/src/app"
+    tty: true
+
+  db:
+    # イメージをビルドせずに、プルするだけの場合には、下記のようにイメージを指定します。
+    image: mysql:8
+    # Docker Composeでも環境変数を定義することができます。
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: my_db
+    # コンテナ間でのみ通信する場合には、portsではなく、exposeでポート番号を指定します。
+    expose:
+      - "3306"
+    command: --default-authentication-plugin=mysql_native_password
+    # エラー等によりcommandが終了した場合には再起動します。
+    restart: always
+
+  # ブラウザからデータベースを操作するツールです。
+  adminer:
+    image: adminer:4
+    ports:
+      - 18080:8080
+    restart: always
