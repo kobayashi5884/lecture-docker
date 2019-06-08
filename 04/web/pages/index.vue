@@ -2,7 +2,7 @@
 <!-- ここにはHTMLを書きますが、Vue.jsならではの便利な書き方ができます。 -->
 <!-- templateの直下には１つの要素（ここではdiv）しか定義できませんので、注意してください。 -->
   <div>
-    <div>{{ text }}</div>
+    <h2>{{ text }}</h2>
     <!-- アプリケーション内でのページ遷移（SPAによるページ遷移）には、nuxt-linkとtoを使います。 -->
     <nuxt-link to="/todo">TODO List</nuxt-link>
   </div>

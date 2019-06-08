@@ -3,7 +3,7 @@
 # コンテナへのアクセス
 # docker-compose exec （サービス名） sh
 # コンテナへのアクセス遮断
-# Ctrl + q, Ctrl + p
+# Ctrl + p, Ctrl + q
 # コンテナの終了、削除
 # docker-compose down
 version: '3.1'
