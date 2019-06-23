@@ -2,7 +2,7 @@
   <div>
     <h2>TODO List</h2>
 
-    <div class="new-todo">
+    <div style="margin-bottom: 16px;">
       <input 
         v-model="newTodo" 
         type="text"
@@ -10,36 +10,38 @@
       <button v-on:click="add">add</button>
     </div>
 
-    <div 
-      v-for="(todo, i) in todos" 
-      v-bind:key="todo.ID"
-      class="todos"
-    >
-      <div 
-        v-if="!todo.editable"
-        key="default"
+    <ul>
+      <li 
+        v-for="(todo, i) in todos" 
+        v-bind:key="todo.ID"
+        style="margin-bottom: 8px;"
       >
-        {{ todo.Text }}
-        <button v-on:click="edit(i)">
-          edit
-        </button>
-        <button v-on:click="remove(i)">
-          delete
-        </button>
-      </div>
-      
-      <div 
-        v-else
-        key="edit"
-      >
-        <input 
-          v-model="todo.newText"
-          type="text"
+        <span 
+          v-if="!todo.editable"
+          key="default"
         >
-        <button v-on:click="cancel(i)">cancel</button>
-        <button v-on:click="update(i)">update</button>
-      </div>
-    </div>
+          {{ todo.Text }}
+          <button v-on:click="edit(i)">
+            edit
+          </button>
+          <button v-on:click="remove(i)">
+            delete
+          </button>
+        </span>
+        
+        <span 
+          v-else
+          key="edit"
+        >
+          <input 
+            v-model="todo.newText"
+            type="text"
+          >
+          <button v-on:click="cancel(i)">cancel</button>
+          <button v-on:click="update(i)">update</button>
+        </span>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -139,12 +141,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.new-todo {
-  margin-bottom: 16px;
-}
-.todos {
-  margin-bottom: 8px;
-}
-</style>

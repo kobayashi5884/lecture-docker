@@ -15,46 +15,48 @@
       <button v-on:click="add">add</button>
     </div>
 
-    <!-- 
-      v-forは、dataの配列（ここではtodos）の要素に応じて、
-      DOMの要素を描画することができます。 
-    -->
-    <!-- v-bindは、（文字列ではなく）変数を参照する場合に使用します。 -->
-    <div 
-      v-for="(todo, i) in todos" 
-      v-bind:key="i"
-      class="todos"
-    >
-      <!-- v-if、v-else-if、v-elseは、DOM要素の表示、非表示を制御します。 -->
+    <ul>
       <!-- 
-        v-showというディレクティブもあります。
-        頻繁に表示、非表示を切り替えるような場合には、v-showの方が効率がよい場合があります。 
+        v-forは、dataの配列（ここではtodos）の要素に応じて、
+        DOMの要素を描画することができます。 
       -->
-      <div 
-        v-if="!todo.editable"
-        key="default"
+      <!-- v-bindは、（文字列ではなく）変数を参照する場合に使用します。 -->
+      <li 
+        v-for="(todo, i) in todos" 
+        v-bind:key="i"
+        class="todos"
       >
-        {{ todo.text }}
-        <button v-on:click="edit(i)">
-          edit
-        </button>
-        <button v-on:click="todos.splice(i, 1)">
-          delete
-        </button>
-      </div>
-      
-      <div 
-        v-else
-        key="edit"
-      >
-        <input 
-          v-model="todo.newText"
-          type="text"
+        <!-- v-if、v-else-if、v-elseは、DOM要素の表示、非表示を制御します。 -->
+        <!-- 
+          v-showというディレクティブもあります。
+          頻繁に表示、非表示を切り替えるような場合には、v-showの方が効率がよい場合があります。 
+        -->
+        <span 
+          v-if="!todo.editable"
+          key="default"
         >
-        <button v-on:click="cancel(i)">cancel</button>
-        <button v-on:click="update(i)">update</button>
-      </div>
-    </div>
+          {{ todo.text }}
+          <button v-on:click="edit(i)">
+            edit
+          </button>
+          <button v-on:click="todos.splice(i, 1)">
+            delete
+          </button>
+        </span>
+        
+        <span 
+          v-else
+          key="edit"
+        >
+          <input 
+            v-model="todo.newText"
+            type="text"
+          >
+          <button v-on:click="cancel(i)">cancel</button>
+          <button v-on:click="update(i)">update</button>
+        </span>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -90,7 +92,7 @@ export default {
       newTodo.newText = newTodo.text
       newTodo.editable = true
       this.todos.splice(i, 1, newTodo)
-      // this.$set(i, newTodo) というVue.js固有の書き方もあります。
+      // this.$set(this.todos, i, newTodo) というVue.js固有の書き方もあります。
     },
     cancel(i) {
       const newTodo = JSON.parse(JSON.stringify(this.todos[i]))
